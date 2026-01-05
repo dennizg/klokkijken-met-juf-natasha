@@ -1,0 +1,6 @@
+/**
+ * This file is a placeholder since we are installing the npm package 'canvas-confetti'.
+ * The GameContainer imports from 'canvas-confetti' directly.
+ * I need to ensure the package is installed. I did run 'npm install' earlier but I didn't add canvas-confetti.
+ * I will run npm install canvas-confetti now.
+ */
