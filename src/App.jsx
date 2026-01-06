@@ -108,29 +108,39 @@ function App() {
   };
 
   return (
-    <div className="app-container" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '20px', height: '100%', maxWidth: '480px', margin: '0 auto' }}>
-      <header style={{ marginBottom: '10px', marginTop: '30px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <h1 className="text-gradient" style={{ fontSize: '3rem', fontWeight: '800', lineHeight: 1.1 }}>
-          Klok<br />Kijken
-        </h1>
-        {view === 'menu' && (
-          <div style={{ marginTop: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <img
-              src={jufImage}
-              alt="Juf Natasha"
-              style={{
-                width: '180px',
-                height: 'auto',
-                marginBottom: '10px',
-                filter: 'drop-shadow(0 0 10px rgba(255,255,255,0.2))'
-              }}
-            />
-            <p style={{ color: 'var(--text-muted)', fontSize: '1.2rem' }}>
-              Oefenen met juf Natasha
-            </p>
-          </div>
-        )}
-      </header>
+    <div className="app-container" style={{
+      padding: view === 'game' ? '10px' : '20px',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: view === 'game' ? '10px' : '20px',
+      height: '100%',
+      maxWidth: '480px',
+      margin: '0 auto'
+    }}>
+      {view !== 'game' && (
+        <header style={{ marginBottom: '10px', marginTop: '30px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <h1 className="text-gradient" style={{ fontSize: '3rem', fontWeight: '800', lineHeight: 1.1 }}>
+            Klok<br />Kijken
+          </h1>
+          {view === 'menu' && (
+            <div style={{ marginTop: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <img
+                src={jufImage}
+                alt="Juf Natasha"
+                style={{
+                  width: '180px',
+                  height: 'auto',
+                  marginBottom: '10px',
+                  filter: 'drop-shadow(0 0 10px rgba(255,255,255,0.2))'
+                }}
+              />
+              <p style={{ color: 'var(--text-muted)', fontSize: '1.2rem' }}>
+                Oefenen met juf Natasha
+              </p>
+            </div>
+          )}
+        </header>
+      )}
 
       <AnimatePresence mode="wait">
         {view === 'menu' ? (

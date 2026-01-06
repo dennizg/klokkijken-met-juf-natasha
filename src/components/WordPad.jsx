@@ -22,7 +22,7 @@ const WordPad = ({ onAddWord, onDelete, onSubmit, settings }) => {
     });
 
     return (
-        <div style={{ maxWidth: '400px', margin: '0 auto' }}>
+        <div className="wordpad-container" style={{ maxWidth: '400px', margin: '0 auto' }}>
             {/* Numbers Grid */}
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', justifyContent: 'center', marginBottom: '15px' }}>
                 {numbers.map((word) => (
@@ -30,7 +30,7 @@ const WordPad = ({ onAddWord, onDelete, onSubmit, settings }) => {
                         key={word}
                         whileTap={{ scale: 0.95 }}
                         onClick={() => onAddWord(word)}
-                        className="glass-button"
+                        className="glass-button wordpad-button"
                         style={{
                             padding: '10px 15px',
                             fontSize: '0.9rem',
@@ -57,7 +57,7 @@ const WordPad = ({ onAddWord, onDelete, onSubmit, settings }) => {
                         key={word}
                         whileTap={{ scale: 0.95 }}
                         onClick={() => onAddWord(word)}
-                        className="glass-button"
+                        className="glass-button wordpad-button"
                         style={{
                             padding: '10px 15px',
                             fontSize: '0.9rem',
@@ -77,7 +77,7 @@ const WordPad = ({ onAddWord, onDelete, onSubmit, settings }) => {
                 <motion.button
                     whileTap={{ scale: 0.95 }}
                     onClick={onDelete}
-                    className="glass-button"
+                    className="glass-button wordpad-action"
                     style={{ flex: 1, padding: '15px', background: 'rgba(255,50,50,0.2)', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
                 >
                     <Delete size={20} />
@@ -86,7 +86,7 @@ const WordPad = ({ onAddWord, onDelete, onSubmit, settings }) => {
                 <motion.button
                     whileTap={{ scale: 0.95 }}
                     onClick={onSubmit}
-                    className="glass-button"
+                    className="glass-button wordpad-submit"
                     style={{
                         flex: 3,
                         padding: '15px',

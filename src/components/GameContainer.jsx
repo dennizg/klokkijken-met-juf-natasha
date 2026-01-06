@@ -263,6 +263,7 @@ const GameContainer = ({ onExit, settings }) => {
             initial={{ opacity: 0, x: 100 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -100 }}
+            className="game-layout"
             style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}
         >
             <AnimatePresence>
@@ -371,16 +372,27 @@ const GameContainer = ({ onExit, settings }) => {
                 >
                     ← Stop
                 </button>
+
+                {/* Moved Title */}
+                <h2 style={{
+                    textAlign: 'center',
+                    fontWeight: '400',
+                    fontSize: '1.1rem',
+                    margin: 0,
+                    position: 'absolute',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    width: 'max-content'
+                }}>
+                    {direction === 'analogue-to-input'
+                        ? (inputMode === 'digital' ? 'Hoe laat is het?' : 'Schrijf in woorden:')
+                        : 'Zet de wijzers goed:'}
+                </h2>
+
                 <div className="glass-panel" style={{ padding: '5px 15px', borderRadius: '20px', fontSize: '0.9rem' }}>
                     {settings.playerName}: <span style={{ color: 'var(--primary-accent)', fontWeight: 'bold' }}>{score}</span>
                 </div>
             </div>
-
-            <h2 style={{ textAlign: 'center', fontWeight: '400', marginBottom: '10px' }}>
-                {direction === 'analogue-to-input'
-                    ? (inputMode === 'digital' ? 'Hoe laat is het?' : 'Schrijf in woorden:')
-                    : 'Zet de wijzers goed:'}
-            </h2>
 
             {/* Target Display if in Reverse Mode */}
             {direction === 'input-to-analogue' && (
@@ -395,20 +407,22 @@ const GameContainer = ({ onExit, settings }) => {
                 </div>
             )}
 
-            <AnalogClock
-                hours={direction === 'analogue-to-input' ? targetTime.hours : userHands.hours}
-                minutes={direction === 'analogue-to-input' ? targetTime.minutes : userHands.minutes}
-                interactive={direction === 'input-to-analogue'}
-                onChange={handleHandChange}
-            />
+            <div className="game-clock-container">
+                <AnalogClock
+                    hours={direction === 'analogue-to-input' ? targetTime.hours : userHands.hours}
+                    minutes={direction === 'analogue-to-input' ? targetTime.minutes : userHands.minutes}
+                    interactive={direction === 'input-to-analogue'}
+                    onChange={handleHandChange}
+                />
+            </div>
 
             {/* User Input Display if in Normal Mode */}
             {direction === 'analogue-to-input' && (
-                <div style={{ margin: '20px 0', minHeight: '60px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div className="game-input-display" style={{ margin: '10px 0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     {inputMode === 'digital' ? (
                         <DigitalDisplay timeStr={userInput || "--:--"} />
                     ) : (
-                        <div className="glass-panel" style={{ padding: '15px 20px', minWidth: '200px', textAlign: 'center', fontSize: '1.2rem', color: 'var(--tertiary-accent)' }}>
+                        <div className="glass-panel" style={{ padding: '10px 20px', minWidth: '200px', textAlign: 'center', fontSize: '1.2rem', color: 'var(--tertiary-accent)' }}>
                             {userWords.length > 0 ? userWords.join(' ') : <span style={{ opacity: 0.5 }}>...</span>}
                         </div>
                     )}
@@ -432,9 +446,13 @@ const GameContainer = ({ onExit, settings }) => {
             {/* Input Components */}
             {direction === 'analogue-to-input' ? (
                 inputMode === 'digital' ? (
-                    <Numpad onInput={handleInput} onDelete={handleDelete} onSubmit={handleSubmit} />
+                    <div className="game-input-area">
+                        <Numpad onInput={handleInput} onDelete={handleDelete} onSubmit={handleSubmit} />
+                    </div>
                 ) : (
-                    <WordPad onAddWord={handleWordInput} onDelete={handleDelete} onSubmit={handleSubmit} settings={settings} />
+                    <div className="game-input-area">
+                        <WordPad onAddWord={handleWordInput} onDelete={handleDelete} onSubmit={handleSubmit} settings={settings} />
+                    </div>
                 )
             ) : (
                 <motion.button

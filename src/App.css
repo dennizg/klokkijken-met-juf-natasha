@@ -1,1 +1,77 @@
 /* App specific styles if needed, mostly handled by index.css and modules */
+
+/* Laptop / Landscape Optimization */
+@media (max-height: 800px) and (orientation: landscape) {
+
+    /* GLOBAL GAME ADJUSTMENTS */
+    .app-container {
+        padding: 5px !important;
+        /* Minimal padding */
+        gap: 2px !important;
+        height: 100vh !important;
+        overflow: hidden !important;
+        /* Force no scroll if possible */
+        justify-content: space-evenly !important;
+        /* Distribute vertically */
+    }
+
+    /* Game Layout */
+    .game-layout {
+        gap: 2px !important;
+        height: 100%;
+        justify-content: center;
+    }
+
+    /* CLOCK SCALING - Aggressive */
+    .game-clock-container {
+        transform: scale(0.65);
+        margin: -40px 0 -45px 0 !important;
+        z-index: 1;
+        flex-shrink: 0;
+    }
+
+    /* INPUT DISPLAY */
+    .game-input-display {
+        margin: 0 !important;
+        min-height: 30px !important;
+        transform: scale(0.85);
+        flex-shrink: 0;
+    }
+
+    .game-input-display .glass-panel {
+        padding: 4px 15px !important;
+        min-width: 140px !important;
+        font-size: 1.1rem !important;
+    }
+
+    /* NUMPAD - STRICT SQUARE & COMPACT */
+    .numpad-grid {
+        gap: 6px !important;
+        margin-top: 0 !important;
+        max-width: 180px !important;
+        /* Even narrower */
+        flex-shrink: 0;
+    }
+
+    .numpad-button {
+        padding: 0 !important;
+        aspect-ratio: 1 / 1 !important;
+        width: 100% !important;
+        font-size: 1.2rem !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    .numpad-submit {
+        padding: 8px !important;
+        margin-top: 5px !important;
+        font-size: 0.9rem !important;
+    }
+
+    /* WORDPAD */
+    .wordpad-container {
+        margin-top: -5px !important;
+        transform: scale(0.9);
+    }
+}

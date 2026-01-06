@@ -6,13 +6,13 @@ const Numpad = ({ onInput, onDelete, onSubmit }) => {
     const keys = [1, 2, 3, 4, 5, 6, 7, 8, 9, ':', 0];
 
     return (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '15px', maxWidth: '300px', margin: '0 auto' }}>
+        <div className="numpad-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '15px', maxWidth: '300px', margin: '0 auto' }}>
             {keys.map((key) => (
                 <motion.button
                     key={key}
                     whileTap={{ scale: 0.9 }}
                     onClick={() => onInput(key)}
-                    className="glass-button"
+                    className="glass-button numpad-button"
                     style={{
                         fontSize: '1.5rem',
                         fontWeight: '600',
@@ -26,7 +26,7 @@ const Numpad = ({ onInput, onDelete, onSubmit }) => {
             <motion.button
                 whileTap={{ scale: 0.9 }}
                 onClick={onDelete}
-                className="glass-button"
+                className="glass-button numpad-button"
                 style={{
                     fontSize: '1.5rem',
                     padding: '15px 0',
@@ -40,7 +40,7 @@ const Numpad = ({ onInput, onDelete, onSubmit }) => {
             <motion.button
                 whileTap={{ scale: 0.95 }}
                 onClick={onSubmit}
-                className="glass-button"
+                className="glass-button numpad-submit"
                 style={{
                     gridColumn: '1 / -1',
                     background: 'linear-gradient(to right, var(--primary-accent), var(--secondary-accent))',
