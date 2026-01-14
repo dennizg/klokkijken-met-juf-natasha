@@ -1,8 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Delete, Check } from 'lucide-react';
+import { useAudio } from '../contexts/AudioContext';
 
 const WordPad = ({ onAddWord, onDelete, onSubmit, settings }) => {
+    const { speak } = useAudio();
     // Ordered logically
     const numbers = [
         'een', 'twee', 'drie', 'vier',
@@ -29,7 +31,10 @@ const WordPad = ({ onAddWord, onDelete, onSubmit, settings }) => {
                     <motion.button
                         key={word}
                         whileTap={{ scale: 0.95 }}
-                        onClick={() => onAddWord(word)}
+                        onClick={() => {
+                            onAddWord(word);
+                            speak(word);
+                        }}
                         className="glass-button wordpad-button"
                         style={{
                             padding: '10px 15px',
@@ -56,7 +61,10 @@ const WordPad = ({ onAddWord, onDelete, onSubmit, settings }) => {
                     <motion.button
                         key={word}
                         whileTap={{ scale: 0.95 }}
-                        onClick={() => onAddWord(word)}
+                        onClick={() => {
+                            onAddWord(word);
+                            speak(word);
+                        }}
                         className="glass-button wordpad-button"
                         style={{
                             padding: '10px 15px',

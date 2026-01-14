@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useAudio } from './contexts/AudioContext';
 import './App.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import GameContainer from './components/GameContainer';
@@ -63,6 +64,7 @@ const PremiumMedal = ({ rank, size = 32 }) => {
 };
 
 function App() {
+  const { audioEnabled, toggleAudio, speak } = useAudio();
   const [view, setView] = useState('menu'); // 'menu', 'game', 'settings'
   const [settings, setSettings] = useState({
     playerName: 'De Speler',
@@ -406,6 +408,20 @@ function App() {
                   </label>
                 ))}
               </div>
+
+
+              <div style={{ paddingBottom: '15px', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+                <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '1rem', cursor: 'pointer', fontWeight: 'bold' }}>
+                  <span>🔊 Voorlezen (Audio)</span>
+                  <input
+                    type="checkbox"
+                    checked={audioEnabled}
+                    onChange={toggleAudio}
+                    style={{ transform: 'scale(1.3)', accentColor: 'var(--primary-accent)' }}
+                  />
+                </label>
+              </div>
+
             </div>
             <button
               className="glass-button"

@@ -1,8 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Delete } from 'lucide-react';
+import { useAudio } from '../contexts/AudioContext';
 
 const Numpad = ({ onInput, onDelete, onSubmit }) => {
+    const { speak } = useAudio();
     const keys = [1, 2, 3, 4, 5, 6, 7, 8, 9, ':', 0];
 
     return (
@@ -11,7 +13,10 @@ const Numpad = ({ onInput, onDelete, onSubmit }) => {
                 <motion.button
                     key={key}
                     whileTap={{ scale: 0.9 }}
-                    onClick={() => onInput(key)}
+                    onClick={() => {
+                        onInput(key);
+                        speak(key === ':' ? 'uur' : key.toString());
+                    }}
                     className="glass-button numpad-button"
                     style={{
                         fontSize: '1.5rem',

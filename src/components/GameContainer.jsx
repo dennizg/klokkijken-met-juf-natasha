@@ -6,6 +6,7 @@ import Numpad from './Numpad';
 import WordPad from './WordPad';
 import { generateRandomTime, formatTime } from '../utils/timeGenerator';
 import { getDutchTimeText } from '../utils/dutchTimeUtils';
+import { useAudio } from '../contexts/AudioContext';
 import confetti from 'canvas-confetti';
 
 // Import raw CSV content
@@ -30,6 +31,7 @@ const GameContainer = ({ onExit, settings }) => {
     const [correctCount, setCorrectCount] = useState(0);
     const [overlayType, setOverlayType] = useState('none'); // 'none' | 'success' | 'calm'
     const [overlayContent, setOverlayContent] = useState(null); // { text, imageSrc }
+    const { speak } = useAudio();
 
     // Parse CSVs once on mount
     const complimentsData = useMemo(() => parseFeedbackCSV(complimentsCSV), []);
@@ -53,6 +55,15 @@ const GameContainer = ({ onExit, settings }) => {
 
         const newTime = generateRandomTime(activeModes, settings.use24Hour);
         setTargetTime(newTime);
+
+        // Speak the new question (queue it, don't interrupt feedback)
+        if (direction === 'analogue-to-input') {
+            speak('Hoe laat is het?', false);
+        } else {
+            const timeText = getDutchTimeText(newTime.hours, newTime.minutes);
+            speak(`Zet de klok op: ${timeText}`, false);
+        }
+
         setUserInput('');
         setUserWords([]);
         setUserHands({ hours: 12, minutes: 0 });
@@ -160,6 +171,28 @@ const GameContainer = ({ onExit, settings }) => {
     };
 
     const handleSubmit = () => {
+        // 1. Speak what the user entered/selected
+        let spokenInput = '';
+        try {
+            if (direction === 'analogue-to-input') {
+                if (inputMode === 'digital' && userInput.includes(':')) {
+                    const [hStr, mStr] = userInput.split(':');
+                    spokenInput = getDutchTimeText(parseInt(hStr), parseInt(mStr));
+                } else if (inputMode === 'text') {
+                    spokenInput = userWords.join(' ');
+                }
+            } else {
+                spokenInput = getDutchTimeText(userHands.hours, userHands.minutes);
+            }
+        } catch (e) {
+            console.error("Audio parsing error", e);
+        }
+
+        if (spokenInput) {
+            speak(`Jij koos: ${spokenInput}`, true);
+        }
+
+        // 2. Validate
         let isCorrect = false;
 
         if (direction === 'analogue-to-input') {
@@ -197,6 +230,9 @@ const GameContainer = ({ onExit, settings }) => {
 
         if (isCorrect) {
             setFeedback('correct');
+            // Queue this after the input reading
+            // Queue this after the input reading - MALE voice (default)
+            speak('Goed gedaan!', { interrupt: false });
 
             let points = 1;
             if (attempts === 0) points = 10;
@@ -228,6 +264,9 @@ const GameContainer = ({ onExit, settings }) => {
 
                 setTimeout(() => {
                     setOverlayType('success');
+                    // Juf Natasha (Female + Enthusiastic) for the overlay
+                    if (pick) speak(pick.text, { interrupt: false, style: 'enthusiastic', gender: 'female' });
+                    else speak(`Goed bezig, ${settings.playerName}!`, { interrupt: false, style: 'enthusiastic', gender: 'female' });
                 }, 1000);
             } else {
                 setTimeout(newQuestion, 2000);
@@ -235,6 +274,8 @@ const GameContainer = ({ onExit, settings }) => {
 
         } else {
             setFeedback('incorrect');
+            // Queue this after the input reading
+            speak('Probeer het nog eens', false);
             const newAttempts = attempts + 1;
             setAttempts(newAttempts);
             setHasError(true);
@@ -253,6 +294,9 @@ const GameContainer = ({ onExit, settings }) => {
 
                 setTimeout(() => {
                     setOverlayType('calm');
+                    // Juf Natasha (Female + Enthusiastic) for the overlay
+                    if (pick) speak(pick.text, { interrupt: false, style: 'enthusiastic', gender: 'female' });
+                    else speak('Rustig aan, denk goed na!', { interrupt: false, style: 'enthusiastic', gender: 'female' });
                 }, 1000);
             }
         }
