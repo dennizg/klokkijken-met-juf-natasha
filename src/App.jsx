@@ -117,14 +117,15 @@ function App() {
       maxWidth: '480px',
       margin: '0 auto'
     }}>
-      {view !== 'game' && (
-        <header style={{ marginBottom: '10px', marginTop: '30px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      {(view === 'menu' || view === 'scores') && (
+        <header className="landing-header" style={{ marginBottom: '10px', marginTop: '30px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <h1 className="text-gradient" style={{ fontSize: '3rem', fontWeight: '800', lineHeight: 1.1 }}>
             Klok<br />Kijken
           </h1>
           {view === 'menu' && (
             <div style={{ marginTop: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
               <img
+                className="juf-image"
                 src={jufImage}
                 alt="Juf Natasha"
                 style={{
@@ -152,11 +153,11 @@ function App() {
             style={{ display: 'flex', flexDirection: 'column', gap: '20px', flex: 1, justifyContent: 'center' }}
           >
             <motion.div
-              className="glass-panel"
+              className="glass-panel start-panel"
               whileHover={{ scale: 1.02 }}
               style={{ padding: '30px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '15px' }}
             >
-              <div style={{ fontSize: '4rem' }}>⏰</div>
+              <div style={{ fontSize: '4rem' }} className="start-icon">⏰</div>
               <h3 style={{ fontSize: '1.5rem' }}>Oefenen</h3>
               <p style={{ textAlign: 'center', color: 'rgba(255,255,255,0.6)' }}>Leer de klok lezen met leuke oefeningen!</p>
               <button
@@ -168,10 +169,10 @@ function App() {
               </button>
             </motion.div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
+            <div className="menu-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
               <motion.button
                 onClick={() => setView('scores')}
-                className="glass-panel"
+                className="glass-panel menu-button-panel"
                 whileTap={{ scale: 0.95 }}
                 style={{ padding: '20px', textAlign: 'center', border: 'none', color: 'white', cursor: 'pointer', fontFamily: 'inherit', background: 'rgba(255,255,255,0.05)' }}
               >
@@ -179,7 +180,7 @@ function App() {
               </motion.button>
               <motion.button
                 onClick={() => setView('settings')}
-                className="glass-panel"
+                className="glass-panel menu-button-panel"
                 whileTap={{ scale: 0.95 }}
                 style={{ padding: '20px', textAlign: 'center', border: 'none', color: 'white', cursor: 'pointer', fontFamily: 'inherit', background: 'rgba(255,255,255,0.05)' }}
               >
@@ -271,7 +272,7 @@ function App() {
             exit={{ opacity: 0, x: -20 }}
             style={{ width: '100%' }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
               <button
                 className="glass-panel"
                 onClick={() => setView('menu')}
@@ -290,8 +291,9 @@ function App() {
               >
                 ← Terug
               </button>
+              <h2 style={{ fontSize: '1.5rem', margin: 0 }}>Instellingen</h2>
+              <div style={{ width: '60px' }}></div> {/* Spacer for centering if needed, or just flex-start/end mix */}
             </div>
-            <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Instellingen</h2>
             <div className="glass-panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '15px', maxHeight: '70vh', overflowY: 'auto' }}>
               <div style={{ paddingBottom: '15px', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
                 <label style={{ display: 'block', marginBottom: '10px', fontWeight: 'bold' }}>Jouw Naam:</label>

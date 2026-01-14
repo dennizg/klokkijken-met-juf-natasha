@@ -74,4 +74,61 @@
         margin-top: -5px !important;
         transform: scale(0.9);
     }
+
+    /* LANDING PAGE OPTIMIZATION */
+    .landing-header {
+        margin-top: 10px !important;
+        margin-bottom: 5px !important;
+    }
+
+    .landing-header h1 {
+        font-size: 2rem !important;
+    }
+
+    .landing-header p {
+        font-size: 1rem !important;
+        margin-bottom: 0 !important;
+    }
+
+    .juf-image {
+        width: 120px !important;
+        margin-bottom: 5px !important;
+    }
+
+    .start-panel {
+        padding: 15px !important;
+        gap: 10px !important;
+    }
+
+    .start-panel .start-icon {
+        font-size: 2.5rem !important;
+    }
+
+    .start-panel h3 {
+        font-size: 1.2rem !important;
+        margin: 0 !important;
+    }
+
+    .start-panel p {
+        font-size: 0.9rem !important;
+        margin-bottom: 5px !important;
+    }
+
+    .glass-button {
+        padding: 10px 25px !important;
+        font-size: 1rem !important;
+    }
+
+    .menu-grid {
+        gap: 10px !important;
+    }
+
+    .menu-button-panel {
+        padding: 15px !important;
+    }
+
+    .menu-button-panel h3 {
+        font-size: 1rem !important;
+        margin: 0 !important;
+    }
 }
